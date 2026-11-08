@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scissor - URL Shortening Solution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0065FE;
+            --primary-hover: #0052cc;
+            --dark-bg: #0B162B;
+            --text-dark: #141414;
+            --text-gray: #5C6F84;
+            --light-bg: #FAFBFC;
+            --border-color: #E2E8F0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            color: var(--text-dark);
+            background-color: #FFFFFF;
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #FFFFFF;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-text {
+            color: var(--primary);
+            padding: 12px;
+        }
+
+        /* Navigation */
+        header {
+            padding: 24px 0;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-gray);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 60px 0 40px;
+            background: radial-gradient(50% 50% at 50% 50%, rgba(0, 101, 254, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .hero h1 {
+            font-size: 44px;
+            font-weight: 700;
+            line-height: 1.2;
+            max-width: 850px;
+            margin: 0 auto 20px;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            color: var(--text-gray);
+            max-width: 650px;
+            margin: 0 auto 32px;
+            font-size: 16px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .hero-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.04);
+            text-align: center;
+        }
+
+        /* Stats */
+        .stats-bar {
+            background: #F8FAFC;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .stat-item h3 {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .stat-item p {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        /* Features */
+        .features {
+            padding: 100px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+        }
+
+        .features-intro h2 {
+            font-size: 36px;
+            font-weight: 700;
+            position: relative;
+            padding-left: 16px;
+        }
+
+        .features-intro h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            bottom: 6px;
+            width: 5px;
+            background-color: var(--primary);
+            border-radius: 4px;
+        }
+
+        .features-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .feature-item h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 8px 0;
+        }
+
+        .feature-item p {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .pricing-cards {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        .pricing-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px 24px;
+            flex: 1;
+            text-align: left;
+        }
+
+        .pricing-card.featured {
+            background: var(--dark-bg);
+            color: #FFFFFF;
+            padding: 48px 32px;
+            border-radius: 16px;
+        }
+
+        .pricing-card.featured p, .pricing-card.featured ul li {
+            color: #CBD5E1;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0 30px;
+            background: #FFFFFF;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .footer-col h4 {
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .footer-col ul a {
+            color: var(--text-gray);
+        }
+
+        @media (max-width: 900px) {
+            .features-grid, .stats-grid, .pricing-cards, .footer-grid {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    ✂️ SCISSOR
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="form.html">Apply / Trim URL</a></li>
+                    <li><a href="#faqs">FAQs</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="form.html" class="btn-text">Log In</a>
+                    <a href="form.html" class="btn btn-primary">Try for free</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Optimize Your Online Experience with Our Advanced <span>URL Shortening</span> Solution</h1>
+            <p>Personalize, share, and track your shortened URLs seamlessly. Enhance your brand's reach with links that are as impactful as your content.</p>
+            <div class="hero-buttons">
+                <a href="form.html" class="btn btn-primary">Sign Up</a>
+                <a href="form.html" class="btn-text">Trim Link Now</a>
+            </div>
+            <div class="hero-card">
+                <p>🔗 Seamlessly transform long URLs into short, memorable links with just one click.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>One Stop.<br>Four <span>Possibilities</span>.</h3>
+                </div>
+                <div class="stat-item">
+                    <h3>3M</h3>
+                    <p>Active users</p>
+                </div>
+                <div class="stat-item">
+                    <h3>60M</h3>
+                    <p>Links & QR codes created</p>
+                </div>
+                <div class="stat-item">
+                    <h3>1B</h3>
+                    <p>Clicked & Redirected connections</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="features-intro">
+                    <h2>Why choose <span>Scissors</span></h2>
+                    <p>Scissors is the hub of everything that has to do with your link management. We shorten your URLs, generate custom QR codes, provide click analytics, and support custom domains.</p>
+                </div>
+                <div class="features-cards">
+                    <div class="feature-item">
+                        <h3>URL Shortening</h3>
+                        <p>URL shortening allows users to create shorter links for easier sharing and better aesthetics across platforms.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Custom URLs</h3>
+                        <p>Create fully customized link names to build brand awareness and trust with your audience.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>QR Codes</h3>
+                        <p>Generate customizable QR codes for print media, events, or digital access seamlessly.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Data Analytics</h3>
+                        <p>Track click statistics, geolocation data, and top referral channels to optimize performance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2>A <span>price perfect</span> for your needs.</h2>
+            <p style="color: var(--text-gray); margin-bottom: 30px;">From small businesses to large enterprises, we've got a plan tailored just for you.</p>
+            
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3>Basic</h3>
+                    <div style="font-size: 28px; font-weight:700;">Free</div>
+                    <p style="color: var(--text-gray); margin-bottom: 16px;">Free plan for all users</p>
+                    <ul style="list-style: none;">
+                        <li>✓ Unlimited URL Shortening</li>
+                        <li>✓ Basic Link Analytics</li>
+                    </ul>
+                </div>
+                <div class="pricing-card featured">
+                    <h3>Professional</h3>
+                    <div style="font-size: 28px; font-weight:700;">$15/month</div>
+                    <p style="margin-bottom: 16px;">Ideal for growing teams</p>
+                    <ul style="list-style: none;">
+                        <li>✓ Unlimited URL Shortening</li>
+                        <li>✓ Advanced Link Analytics</li>
+                        <li>✓ Custom Domains & QR Codes</li>
+                    </ul>
+                </div>
+                <div class="pricing-card">
+                    <h3>Teams</h3>
+                    <div style="font-size: 28px; font-weight:700;">$25/month</div>
+                    <p style="color: var(--text-gray); margin-bottom: 16px;">Share with up to 10 users</p>
+                    <ul style="list-style: none;">
+                        <li>✓ Everything in Professional</li>
+                        <li>✓ Team Collaboration Tools</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="index.html" class="logo">✂️ SCISSOR</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Why Scissor?</h4>
+                    <ul>
+                        <li><a href="#">Scissor 101</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Solutions</h4>
+                    <ul>
+                        <li><a href="#">Social Media</a></li>
+                        <li><a href="#">Digital Marketing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="form.html">Link Shortener</a></li>
+                        <li><a href="#">QR Codes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="form.html">Apply Here</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
